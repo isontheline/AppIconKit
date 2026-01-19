@@ -25,6 +25,7 @@ public struct AlternateAppIconListItem: View {
         self.init(
             icon: icon.icon,
             iconName: icon.appIconName,
+            name: icon.name,
             isSelected: isSelected
         )
     }
@@ -38,15 +39,18 @@ public struct AlternateAppIconListItem: View {
     public init(
         icon: Image,
         iconName: String?,
+        name: String?,
         isSelected: Bool = false
     ) {
         self.icon = icon
         self.iconName = iconName
+        self.name = name ?? iconName
         self.isSelected = isSelected
     }
 
     private let icon: Image
     private let iconName: String?
+    private let name: String?
     private let isSelected: Bool
 
     @Environment(\.alternateAppIconListItemStyle)
@@ -69,8 +73,8 @@ public struct AlternateAppIconListItem: View {
             }
             .frame(width: style.iconSize, height: style.iconSize)
             
-            if let iconName {
-                Text(iconName)
+            if let name {
+                Text(name)
                     .font(style.labelFont)
                     .lineLimit(1)
                     .foregroundColor(style.labelColor)
@@ -186,12 +190,14 @@ public extension EnvironmentValues {
         AlternateAppIconListItem(
             icon: .init(.appIcon),
             iconName: "AppIcon",
+            name: "Awesome",
             isSelected: true
         )
 
         AlternateAppIconListItem(
             icon: .init(.appIcon),
             iconName: "AppIcon",
+            name: "Delight",
             isSelected: false
         )
     }
