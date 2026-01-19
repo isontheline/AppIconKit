@@ -53,20 +53,34 @@ public struct AlternateAppIconListItem: View {
     private var style
 
     public var body: some View {
-        GeometryReader { geo in
-            icon.resizable()
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(0.225 * geo.size.width)
-                .shadow(
-                    color: style.iconShadowColor,
-                    radius: 0,
-                    x: 0,
-                    y: style.iconShadowSize)
-                .overlay(alignment: style.checkmarkAlignment) {
-                    checkmark(for: geo)
-                }
+        VStack(spacing: 8) {
+            GeometryReader { geo in
+                icon.resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(0.225 * geo.size.width)
+                    .shadow(
+                        color: style.iconShadowColor,
+                        radius: 0,
+                        x: 0,
+                        y: style.iconShadowSize)
+                    .overlay(alignment: style.checkmarkAlignment) {
+                        checkmark(for: geo)
+                    }
+            }
+            .frame(width: style.iconSize, height: style.iconSize)
+            
+            if let iconName {
+                Text(iconName)
+                    .font(style.labelFont)
+                    .lineLimit(1)
+                    .foregroundColor(style.labelColor)
+            } else {
+                Text(" ")  // ← Empty text to reserve space
+                    .font(style.labelFont)
+                    .lineLimit(1)
+                    .opacity(0)  // ← Invisible but takes up space
+            }
         }
-        .frame(width: style.iconSize, height: style.iconSize)
     }
 }
 
@@ -116,7 +130,9 @@ public extension AlternateAppIconListItem {
             checkmarkForegroundColor: Color = .white,
             checkmarkBackgroundColor: Color = .green,
             checkmarkShadowColor: Color = .black.opacity(0.4),
-            checkmarkShadowSize: Double = 1
+            checkmarkShadowSize: Double = 1,
+            labelFont: Font = .caption,
+            labelColor: Color = .primary
         ) {
             self.iconSize = iconSize
             self.iconShadowColor = iconShadowColor
@@ -126,6 +142,8 @@ public extension AlternateAppIconListItem {
             self.checkmarkBackgroundColor = checkmarkBackgroundColor
             self.checkmarkShadowColor = checkmarkShadowColor
             self.checkmarkShadowSize = checkmarkShadowSize
+            self.labelFont = labelFont
+            self.labelColor = labelColor
         }
 
         public var iconSize: Double
@@ -136,6 +154,8 @@ public extension AlternateAppIconListItem {
         public var checkmarkBackgroundColor: Color
         public var checkmarkShadowColor: Color
         public var checkmarkShadowSize: Double
+        public var labelFont: Font = .caption
+        public var labelColor: Color = .primary
     }
 }
 
