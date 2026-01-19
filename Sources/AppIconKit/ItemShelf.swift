@@ -86,14 +86,14 @@ private extension View {
 public struct ItemShelfSection<ItemType: Identifiable> {
     
     public init(
-        title: LocalizedStringKey,
+        title: String,
         items: [ItemType]
     ) {
         self.title = title
         self.items = items
     }
     
-    public let title: LocalizedStringKey
+    public let title: String
     public let items: [ItemType]
 }
 
