@@ -1,3 +1,5 @@
+Fork of the awesome AppIconKit project by [@danielsaidi](https://github.com/danielsaidi/AppIconKit)
+
 <p align="center">
     <img src="Resources/Icon-Badge.png" alt="Project Icon" width="250" />
 </p>
